@@ -2,7 +2,7 @@
 # news_fetcher/fetch_and_store_articles.py
 
 from aggregator import create_app, db
-from aggregator.article_signals import ROUNDUP_TITLE_PATTERNS, is_roundup_article, low_value_article_reason
+from aggregator.article_signals import ROUNDUP_TITLE_PATTERNS, bias_bucket_for_score, is_roundup_article, low_value_article_reason
 from aggregator.models import Article, Outlet, Story, Topic
 from newsapi import NewsApiClient
 from news_fetcher.outlet_bias_llm import get_outlet_bias_from_llm
@@ -105,20 +105,6 @@ def empty_store_metrics(topic_name, provider=None, input_articles=0):
 def merge_count_maps(target, source):
     for key, value in (source or {}).items():
         target[key] = target.get(key, 0) + value
-
-
-def bias_bucket_for_score(score):
-    if score is None:
-        return "unrated"
-    if score <= 1.5:
-        return "left"
-    if score <= 2.5:
-        return "lean_left"
-    if score <= 3.5:
-        return "center"
-    if score <= 4.5:
-        return "lean_right"
-    return "right"
 
 
 def serialize_grouping_candidate_ids(candidate_story_ids):
@@ -306,20 +292,6 @@ def stories_look_duplicate_for_edition(story_a, story_b):
     return False
 
 
-def _score_to_bucket(score):
-    if score is None:
-        return "unrated"
-    if score <= 1.5:
-        return "left"
-    if score <= 2.5:
-        return "lean_left"
-    if score <= 3.5:
-        return "center"
-    if score <= 4.5:
-        return "lean_right"
-    return "right"
-
-
 def _story_balance_bucket(story):
     counts = {
         "leftish": 0,
@@ -331,7 +303,7 @@ def _story_balance_bucket(story):
         score = article.bias_score
         if score is None and article.outlet:
             score = article.outlet.bias_score
-        bucket = _score_to_bucket(score)
+        bucket = bias_bucket_for_score(score)
         if bucket in ("left", "lean_left"):
             counts["leftish"] += 1
         elif bucket in ("right", "lean_right"):
@@ -369,7 +341,7 @@ def _story_has_left_and_right_coverage(story):
         score = article.bias_score
         if score is None and article.outlet:
             score = article.outlet.bias_score
-        bucket = _score_to_bucket(score)
+        bucket = bias_bucket_for_score(score)
 
         if bucket in ("left", "lean_left"):
             has_leftish = True

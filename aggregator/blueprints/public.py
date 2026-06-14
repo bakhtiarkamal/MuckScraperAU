@@ -5,60 +5,12 @@ from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from aggregator.search import healthcheck as meili_healthcheck
 from aggregator.models import Article, Story, Topic, RawArticlePayload
-from aggregator.constants import TOPICS, AGGREGATORS
+from aggregator.constants import TOPICS
+from aggregator.story_view import apply_aggregator_filter
 
 logger = logging.getLogger(__name__)
 
 public = Blueprint("public", __name__)
-
-
-def apply_aggregator_filter(story):
-    from datetime import datetime as dt
-    originals = []
-    aggregators = []
-    has_good_original = False
-    seen_articles = set()
-    sorted_articles = sorted(story.articles, key=lambda x: x.date or dt.min, reverse=True)
-    for art in sorted_articles:
-        key = (art.title, art.outlet_id)
-        if key in seen_articles:
-            continue
-        seen_articles.add(key)
-        outlet_name = art.outlet.name if art.outlet else ""
-        if any(agg in outlet_name for agg in AGGREGATORS):
-            aggregators.append(art)
-        else:
-            originals.append(art)
-            if art.content and len(art.content) > 500:
-                has_good_original = True
-    story.display_articles = originals if has_good_original else (originals + aggregators)
-    if not has_good_original:
-        story.display_articles.sort(key=lambda x: x.date or dt.min, reverse=True)
-
-    status_counts = {
-        "success": 0,
-        "fallback": 0,
-        "blocked": 0,
-    }
-    for article in story.display_articles:
-        status = (article.scrape_status or "blocked").lower()
-        if status == "success":
-            status_counts["success"] += 1
-        elif status == "fallback":
-            status_counts["fallback"] += 1
-        else:
-            status_counts["blocked"] += 1
-
-    total_articles = len(story.display_articles)
-    readable_articles = status_counts["success"] + status_counts["fallback"]
-    story.scrape_quality = {
-        "total": total_articles,
-        "success": status_counts["success"],
-        "fallback": status_counts["fallback"],
-        "blocked": status_counts["blocked"],
-        "readable_pct": round((readable_articles / total_articles) * 100) if total_articles else 0,
-        "full_pct": round((status_counts["success"] / total_articles) * 100) if total_articles else 0,
-    }
 
 
 def check_ollama_status():

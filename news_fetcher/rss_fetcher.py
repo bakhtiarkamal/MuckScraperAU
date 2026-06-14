@@ -5,7 +5,8 @@ import logging
 from collections import Counter
 from datetime import datetime
 from datetime import timedelta
-from news_fetcher.fetch_and_store_articles import merge_count_maps, bias_bucket_for_score
+from aggregator.article_signals import bias_bucket_for_score
+from news_fetcher.fetch_and_store_articles import merge_count_maps
 from news_fetcher.story_grouper import normalize_title_tokens, titles_are_near_duplicates
 
 logger = logging.getLogger(__name__)

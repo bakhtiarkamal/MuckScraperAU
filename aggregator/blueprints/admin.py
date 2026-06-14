@@ -8,8 +8,9 @@ from flask_login import login_required
 from sqlalchemy import case, func, or_
 from aggregator import db
 from aggregator.models import AppSetting, Article, Outlet, Story, Topic, RawArticlePayload
-from aggregator.constants import TOPICS, AGGREGATORS
+from aggregator.constants import TOPICS
 from aggregator.search import SearchUnavailableError, reindex_all, search_story_ids
+from aggregator.story_view import apply_aggregator_filter
 
 logger = logging.getLogger(__name__)
 
@@ -258,30 +259,6 @@ def article_domain(url):
     if domain.startswith("www."):
         domain = domain[4:]
     return domain or None
-
-
-def apply_aggregator_filter(story):
-    from datetime import datetime as dt
-    originals = []
-    aggregators_list = []
-    has_good_original = False
-    seen_articles = set()
-    sorted_articles = sorted(story.articles, key=lambda x: x.date or dt.min, reverse=True)
-    for art in sorted_articles:
-        key = (art.title, art.outlet_id)
-        if key in seen_articles:
-            continue
-        seen_articles.add(key)
-        outlet_name = art.outlet.name if art.outlet else ""
-        if any(agg in outlet_name for agg in AGGREGATORS):
-            aggregators_list.append(art)
-        else:
-            originals.append(art)
-            if art.content and len(art.content) > 500:
-                has_good_original = True
-    story.display_articles = originals if has_good_original else (originals + aggregators_list)
-    if not has_good_original:
-        story.display_articles.sort(key=lambda x: x.date or dt.min, reverse=True)
 
 
 def story_bias_totals(story):

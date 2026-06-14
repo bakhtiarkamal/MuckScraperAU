@@ -61,6 +61,20 @@ def is_roundup_article(title=None, url=None):
     return any(hint in parsed_path for hint in ROUNDUP_URL_HINTS)
 
 
+def bias_bucket_for_score(score):
+    if score is None:
+        return "unrated"
+    if score <= 1.5:
+        return "left"
+    if score <= 2.5:
+        return "lean_left"
+    if score <= 3.5:
+        return "center"
+    if score <= 4.5:
+        return "lean_right"
+    return "right"
+
+
 def low_value_article_reason(title=None, url=None):
     if is_roundup_article(title, url):
         return "roundup"

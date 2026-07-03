@@ -19,7 +19,7 @@
   <div class=nav><a href=/>← Home</a> | <a href={{ url_for('admin.tools_page') }}>Admin Tools</a> | <a href={{ url_for('admin.fetch_page') }}>Fetch Articles</a></div>
   <h1>RSS Sources</h1>
   <p class=hint>One URL per line. Lines starting with <code>#</code> are ignored. Blank list falls back to the {{ default_count }} hardcoded defaults. Changes apply to the next fetch cycle.</p>
-  <form method=POST>
+  <form method=POST><input type=hidden name=csrf_token value="{{ csrf_token() }}">
     <textarea name=feeds spellcheck=false>{{ feeds_text }}</textarea>
     <br><button type=submit>Save</button>
   </form>

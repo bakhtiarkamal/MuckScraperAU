@@ -1,6 +1,6 @@
 TOPICS = [
-    {"label": "US Politics", "icon": "UP"},
-    {"label": "US News", "icon": "UN"},
+    {"label": "Australian Politics", "icon": "AP"},
+    {"label": "Australia News", "icon": "AN"},
     {"label": "International News", "icon": "IN"},
     {"label": "Sci/Tech", "icon": "ST"},
     {"label": "Sports", "icon": "SP"},

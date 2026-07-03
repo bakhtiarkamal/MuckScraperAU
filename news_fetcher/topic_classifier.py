@@ -19,8 +19,8 @@ OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "")
 MODEL       = os.environ.get("OLLAMA_MODEL", "")
 
 VALID_TOPICS = [
-    "US Politics",
-    "US News",
+    "Australian Politics",
+    "Australia News",
     "International News",
     "Sci/Tech",
     "Sports",
@@ -53,8 +53,8 @@ def classify_article(title, content_snippet=""):
 Article: "{text}"
 
 Categories (choose only from these exact names):
-- US Politics
-- US News
+- Australian Politics
+- Australia News
 - International News
 - Sci/Tech
 - Sports
@@ -63,10 +63,10 @@ Categories (choose only from these exact names):
 
 Rules:
 - Use EXACT category names only — do not create new categories
-- US Politics means US federal government, Congress, White House, elections, federal courts/policy, or any US government action or statement toward another country (diplomacy, sanctions, tariffs, military orders)
-- International News means events, governments, conflicts, or disasters in other countries. If a story is about a US government action toward another country, use BOTH US Politics and International News
-- US News means domestic US news that is NOT about government or politics — crime, accidents, disasters, lawsuits, local/state news, transportation, weather
-- Entertainment, celebrity, lifestyle, and human-interest stories belong to Other, not US News
+- Australian Politics means Australian federal government, parliament, PM/opposition, elections, federal courts/policy, or Australian government action toward another country (diplomacy, sanctions, trade)
+- International News means events, governments, conflicts, or disasters outside Australia. If a story is about an Australian government action toward another country, use BOTH Australian Politics and International News
+- Australia News means domestic Australian news that is NOT about government or politics — crime, accidents, disasters, lawsuits, state/local news, transport, weather
+- Entertainment, celebrity, lifestyle, and human-interest stories belong to Other, not Australia News
 - Sci/Tech means technology, science, research, AI, space — NOT general business news about tech companies (use Buss/Fin for stock/earnings stories)
 - Buss/Fin means financial markets, economics, corporate earnings, mergers — NOT general commerce
 - Sports contracts and player signings belong to Sports only, not Buss/Fin

@@ -36,19 +36,19 @@ TIMEZONE = "Australia/Sydney"
 SCHEDULED_FETCHES = [
     # === NATIONAL / POLITICS ===
     {
-        "label":          "US Politics",
+        "label":          "Australian Politics",
         "mode":           "query",
         "country":        None,
         "category":       None,
-        "query":          "US politics congress white house senate supreme court",
-        "gnews_query":    "US politics congress white house",
+        "query":          "Australia politics parliament",
+        "gnews_query":    "Australia politics Canberra parliament",
         "gnews_category": None,
     },
     # === BUSINESS / ECONOMY ===
     {
         "label":          "Business & Economy",
         "mode":           "top",
-        "country":        "us",
+        "country":        "au",
         "category":       "business",
         "query":          None,
         "gnews_query":    None,
@@ -60,15 +60,15 @@ SCHEDULED_FETCHES = [
         "mode":           "query",
         "country":        None,
         "category":       None,
-        "query":          "scientific breakthroughs medical research healthcare tech",
-        "gnews_query":    "science health research",
+        "query":          "Australia science research",
+        "gnews_query":    "Australia science health research",
         "gnews_category": "science",
     },
     # === SPORTS ===
     {
         "label":          "Sports",
         "mode":           "top",
-        "country":        "us",
+        "country":        "au",
         "category":       "sports",
         "query":          None,
         "gnews_query":    None,

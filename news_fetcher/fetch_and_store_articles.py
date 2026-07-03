@@ -1072,7 +1072,6 @@ def fetch_newsapi(topic_name, mode="top", query=None, country="us", category=Non
                 language="en",
                 sort_by="publishedAt",
                 page_size=100,
-                domains="abc.net.au,smh.com.au,theage.com.au,news.com.au,theguardian.com,sbs.com.au,9news.com.au,7news.com.au,crikey.com.au,theconversation.com,skynews.com.au,afr.com",
             )
         else:
             label = f"country={country}" if country else ""

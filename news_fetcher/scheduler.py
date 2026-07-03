@@ -31,7 +31,7 @@ logging.basicConfig(
 # Fetch runs can be more frequent than full edition publishing.
 FETCH_SCHEDULE_HOURS = os.environ.get("FETCH_SCHEDULE_HOURS") or "7,12,17,22"
 FULL_PIPELINE_HOURS = os.environ.get("FULL_PIPELINE_HOURS") or "7,17"
-TIMEZONE = "America/New_York"
+TIMEZONE = "Australia/Sydney"
 
 SCHEDULED_FETCHES = [
     # === NATIONAL / POLITICS ===
@@ -966,7 +966,7 @@ if __name__ == "__main__":
         lambda: run_all_fetches(run_full_pipeline=should_run_full_pipeline()),
         trigger=CronTrigger(hour=FETCH_SCHEDULE_HOURS, minute=0, timezone=TIMEZONE),
         id="fetch_job",
-        name="Scheduled news fetch (America/New_York)",
+        name="Scheduled news fetch (Australia/Sydney)",
         replace_existing=True
     )
 

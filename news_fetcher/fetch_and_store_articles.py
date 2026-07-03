@@ -382,7 +382,7 @@ def retry_unrated_outlets():
     """
     unrated = Outlet.query.filter(
         Outlet.bias_score == None,
-        Outlet.bias_retry_count < 15
+        Outlet.bias_retry_count < 3
     ).all()
 
     if not unrated:
@@ -391,7 +391,7 @@ def retry_unrated_outlets():
 
     skipped = Outlet.query.filter(
         Outlet.bias_score == None,
-        Outlet.bias_retry_count >= 15
+        Outlet.bias_retry_count >= 3
     ).count()
 
     if skipped:
@@ -427,7 +427,7 @@ def retry_unrated_outlets():
             outlet.bias_retry_count = (outlet.bias_retry_count or 0) + 1
             logger.warning(
                 f"  Still couldn't rate {outlet.name} "
-                f"(attempt {outlet.bias_retry_count}/15)."
+                f"(attempt {outlet.bias_retry_count}/3)."
             )
 
     db.session.commit()

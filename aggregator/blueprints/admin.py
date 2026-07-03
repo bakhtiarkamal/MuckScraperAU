@@ -338,8 +338,7 @@ def sources_page():
         return redirect(url_for("admin.sources_page"))
     current = _load_json_setting("rss_feeds_override")
     feeds = current if isinstance(current, list) else list(DEFAULT_FEEDS)
-    return render_template("sources.html", feeds_text="
-".join(feeds), default_count=len(DEFAULT_FEEDS))
+    return render_template("sources.html", feeds_text=chr(10).join(feeds), default_count=len(DEFAULT_FEEDS))
 
 
 @admin.route("/articles")

@@ -259,6 +259,18 @@
         document.getElementById('theme-toggle').textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
     }
 
+
+    document.querySelectorAll("form").forEach(f => {
+        f.addEventListener("submit", () => {
+            const b = f.querySelector("button[type=submit]");
+            if (!b) return;
+            b.disabled = true;
+            b.textContent = "Fetching... this can take several minutes";
+            b.style.opacity = "0.6";
+            b.style.cursor = "wait";
+        });
+    });
+
     const savedTheme = localStorage.getItem('muckscraper-theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.getElementById('theme-toggle').textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';

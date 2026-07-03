@@ -152,7 +152,7 @@ def fetch_and_store_rss():
         "per_feed": [],
     }
 
-    for feed_url in RSS_FEEDS:
+    for feed_url in feeds:
         source_name, articles = fetch_feed(feed_url)
         if articles:
             feed_metrics = store_articles(articles, "Global News", provider="rss")

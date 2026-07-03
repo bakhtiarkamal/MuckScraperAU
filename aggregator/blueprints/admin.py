@@ -327,6 +327,21 @@ def tools_page():
     return render_template("admin_tools.html")
 
 
+@admin.route("/sources", methods=["GET", "POST"])
+@login_required
+def sources_page():
+    from news_fetcher.rss_fetcher import RSS_FEEDS as DEFAULT_FEEDS
+    if request.method == "POST":
+        raw = request.form.get("feeds", "").strip()
+        feeds = [line.strip() for line in raw.splitlines() if line.strip() and not line.strip().startswith("#")]
+        _save_json_setting("rss_feeds_override", feeds)
+        return redirect(url_for("admin.sources_page"))
+    current = _load_json_setting("rss_feeds_override")
+    feeds = current if isinstance(current, list) else list(DEFAULT_FEEDS)
+    return render_template("sources.html", feeds_text="
+".join(feeds), default_count=len(DEFAULT_FEEDS))
+
+
 @admin.route("/articles")
 @login_required
 def list_articles(per_page=25, force_multi=False):

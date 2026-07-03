@@ -1087,7 +1087,9 @@ def fetch_newsapi(topic_name, mode="top", query=None, country="us", category=Non
         raw_articles = results.get("articles", [])
         logger.info(f"[NewsAPI] Fetched {len(raw_articles)} articles for topic={topic_name}")
         for a in raw_articles[:10]:
-            logger.info(f"  [NewsAPI] {(a.get("source") or {}).get("name","?")} :: {(a.get("title") or "")[:120]}")
+            _src_name = (a.get("source") or {}).get("name", "?")
+            _title = (a.get("title") or "")[:120]
+            logger.info(f"  [NewsAPI] {_src_name} :: {_title}")
 
         normalized = []
         for a in raw_articles:

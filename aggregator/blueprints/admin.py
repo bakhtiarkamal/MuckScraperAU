@@ -21,20 +21,20 @@ ai_task_lock = threading.Lock()
 SCRAPE_STATUS_FILTERS = ("success", "fallback", "blocked", "failed", "skipped", "pending")
 FETCH_PRESETS = [
     {
-        "label": "US Politics",
-        "description": "Congress, White House, courts, elections",
+        "label": "Australian Politics",
+        "description": "Canberra, PM, parliament, elections",
         "mode": "query",
         "country": "",
         "category": "",
-        "query": "US politics congress white house senate supreme court",
-        "gnews_query": "US politics congress white house",
+        "query": "Australia politics Canberra parliament Albanese Dutton federal election",
+        "gnews_query": "Australia politics Canberra parliament",
         "gnews_category": "",
     },
     {
         "label": "Business & Economy",
-        "description": "Top business headlines",
+        "description": "Top Australian business headlines",
         "mode": "top",
-        "country": "us",
+        "country": "au",
         "category": "business",
         "query": "",
         "gnews_query": "",
@@ -46,15 +46,15 @@ FETCH_PRESETS = [
         "mode": "query",
         "country": "",
         "category": "",
-        "query": "scientific breakthroughs medical research healthcare tech",
-        "gnews_query": "science health research",
+        "query": "Australia scientific research medical healthcare tech CSIRO",
+        "gnews_query": "Australia science health research",
         "gnews_category": "science",
     },
     {
         "label": "Sports",
-        "description": "Top sports headlines",
+        "description": "Top Australian sports headlines",
         "mode": "top",
-        "country": "us",
+        "country": "au",
         "category": "sports",
         "query": "",
         "gnews_query": "",
@@ -70,6 +70,7 @@ FETCH_PRESETS = [
         "gnews_query": "world global news",
         "gnews_category": "world",
     },
+
 ]
 
 

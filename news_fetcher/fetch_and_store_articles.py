@@ -804,7 +804,7 @@ def store_articles(articles_data, topic_name, provider=None):
                 metrics["skipped"]["duplicate_title_outlet"] += 1
                 continue
         
-        logger.info(f"Processing: {title}")
+        logger.info(f"[FETCH] {source_name} :: {title[:120]}")
 
         if is_roundup_article(title, raw_url):
             image_url = None
@@ -858,6 +858,7 @@ def store_articles(articles_data, topic_name, provider=None):
         # Classify article into topics via Ollama
         from aggregator.models import Topic as TopicModel
         classified_topic_names = classify_article(title, content)
+        logger.info(f"[CLASSIFY] {title[:80]} -> {classified_topic_names}")
         for classified_name in classified_topic_names:
             classified_topic = TopicModel.query.filter_by(name=classified_name).first()
             if not classified_topic:
@@ -1084,7 +1085,9 @@ def fetch_newsapi(topic_name, mode="top", query=None, country="us", category=Non
             results = newsapi.get_top_headlines(**kwargs)
 
         raw_articles = results.get("articles", [])
-        logger.info(f"[NewsAPI] Fetched {len(raw_articles)} articles")
+        logger.info(f"[NewsAPI] Fetched {len(raw_articles)} articles for topic={topic_name}")
+        for a in raw_articles[:10]:
+            logger.info(f"  [NewsAPI] {(a.get("source") or {}).get("name","?")} :: {(a.get("title") or "")[:120]}")
 
         normalized = []
         for a in raw_articles:

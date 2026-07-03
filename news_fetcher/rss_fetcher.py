@@ -12,37 +12,22 @@ from news_fetcher.story_grouper import normalize_title_tokens, titles_are_near_d
 logger = logging.getLogger(__name__)
 
 RSS_FEEDS = [
-    # Wire services / Center
-    "https://feeds.apnews.com/rss/topnews",
-    "https://feeds.reuters.com/reuters/topNews",
-    "https://feeds.bbci.co.uk/news/rss.xml",
-    "https://feeds.npr.org/1001/rss.xml",
-    "https://www.pbs.org/newshour/feeds/rss/headlines",
-    "https://www.economist.com/the-world-this-week/rss.xml",
-    # Center-Left
-    "https://rss.cnn.com/rss/edition.rss",
-    "https://feeds.nbcnews.com/nbcnews/public/news",
-    "https://feeds.washingtonpost.com/rss/world",
-    "https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml",
-    "https://www.theguardian.com/world/rss",
-    # Center-Right
-    "https://moxie.foxnews.com/google-publisher/latest.xml",
-    "https://moxie.foxbusiness.com/google-publisher/latest.xml",
-    "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
-    "https://nypost.com/feed/",
-    "https://www.washingtontimes.com/rss/headlines/news/politics/",
-    "https://reason.com/feed/",
-    "https://www.nationalreview.com/feed/",
-    # Political / Neutral
-    "https://thehill.com/feed/",
-    "https://api.axios.com/feed/",
-    "https://rss.politico.com/politics-news.xml",
-    # International / Additional Networks
+    # Australian mainstream
+    "https://www.abc.net.au/news/feed/45910/rss.xml",
+    "https://www.abc.net.au/news/feed/51120/rss.xml",
+    "https://www.smh.com.au/rss/feed.xml",
+    "https://www.smh.com.au/rss/politics/federal.xml",
+    "https://www.theage.com.au/rss/feed.xml",
+    "https://www.news.com.au/content-feeds/latest-news-national/",
+    "https://www.news.com.au/content-feeds/latest-news-politics/",
+    "https://www.theguardian.com/australia-news/rss",
+    "https://www.crikey.com.au/feed/",
+    "https://theconversation.com/au/articles.atom",
+    # International (for International News category)
+    "https://feeds.bbci.co.uk/news/world/rss.xml",
     "https://www.aljazeera.com/xml/rss/all.xml",
-    "https://nationalpost.com/feed/",
-    "https://torontosun.com/feed/",
-    "https://feeds.abcnews.com/abcnews/topstories",
-    "https://www.cbsnews.com/latest/rss/main",
+    "https://www.reuters.com/world/rss/",
+
 ]
 
 RIGHT_ENRICHMENT_FEEDS = [

@@ -63,7 +63,9 @@ Categories (choose only from these exact names):
 
 Rules:
 - Use EXACT category names only — do not create new categories
-- Australian Politics means Australian federal government, parliament, PM/opposition, elections, federal courts/policy, or Australian government action toward another country (diplomacy, sanctions, trade)
+- Australian Politics ONLY applies when the story is about the Australian federal government, Australian parliament, Australian PM/opposition (Albanese, Dutton, Wong, Chalmers, etc.), Australian elections, or Australian federal courts/policy
+- If a politics story is about US Congress, Trump, Biden, Republicans, Democrats, or UK/other-country governments — that is International News, NEVER Australian Politics
+- If unsure whether a politics story is Australian, default to International News
 - International News means events, governments, conflicts, or disasters outside Australia. If a story is about an Australian government action toward another country, use BOTH Australian Politics and International News
 - Australia News means domestic Australian news that is NOT about government or politics — crime, accidents, disasters, lawsuits, state/local news, transport, weather
 - Entertainment, celebrity, lifestyle, and human-interest stories belong to Other, not Australia News
